@@ -13,6 +13,11 @@ public class FollowTarget : MonoBehaviour
     private Vector3Int prevTile;
     private Vector2 currVel;
 
+    protected virtual void Awake()
+    {
+        PrevPos = transform.position;
+    }
+
     protected virtual void Update()
     {
         Tilemap tilemap = GameManager.Tilemap;
