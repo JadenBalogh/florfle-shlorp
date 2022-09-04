@@ -9,11 +9,31 @@ public class Leader : FollowTarget
     [SerializeField] private float insultDuration = 3f;
     [SerializeField] private LayerMask insultTargetMask;
     [SerializeField] private TextMeshProUGUI insultTextbox;
+    [SerializeField] private Sprite leftSprite;
+    [SerializeField] private Sprite rightSprite;
+    [SerializeField] private Sprite topSprite;
+    [SerializeField] private Sprite bottomSprite;
 
     protected List<Follower> followers = new List<Follower>();
+    protected Vector2 targetDir;
 
     private bool canInsult = true;
     private bool hasPlayerBeenInsulted = false;
+    protected SpriteRenderer spriteRenderer;
+
+    protected override void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        base.Awake();
+    }
+
+    protected override void Update()
+    {
+        UpdateSprite();
+
+        base.Update();
+    }
 
     protected virtual void FixedUpdate()
     {
@@ -28,6 +48,26 @@ public class Leader : FollowTarget
         if (!hasInsultTarget)
         {
             hasPlayerBeenInsulted = false;
+        }
+    }
+
+    protected virtual void UpdateSprite()
+    {
+        if (targetDir.x > 0)
+        {
+            spriteRenderer.sprite = rightSprite;
+        }
+        else if (targetDir.x < 0)
+        {
+            spriteRenderer.sprite = leftSprite;
+        }
+        else if (targetDir.y > 0)
+        {
+            spriteRenderer.sprite = topSprite;
+        }
+        else if (targetDir.y <= 0)
+        {
+            spriteRenderer.sprite = bottomSprite;
         }
     }
 

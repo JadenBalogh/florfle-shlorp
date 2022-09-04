@@ -23,6 +23,7 @@ public class NPC : Leader
         float inputH = Mathf.Round(Mathf.PerlinNoise(Time.time, Time.unscaledTime + 100f) * 2f - 1);
         float inputV = Mathf.Round(Mathf.PerlinNoise(Time.unscaledTime - 100f, Time.time) * 2f - 1);
 
+        targetDir = new Vector2(inputH, inputV);
         TargetPos = transform.position + Vector3.right * inputH + Vector3.up * inputV;
 
         base.Update();
