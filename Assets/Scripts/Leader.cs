@@ -71,7 +71,7 @@ public class Leader : FollowTarget
         }
     }
 
-    protected void AddFollower(Follower followerPrefab)
+    public void AddFollower(Follower followerPrefab)
     {
         FollowTarget followTarget = followers.Count > 0 ? followers[followers.Count - 1] : this;
         Follower follower = Instantiate(followerPrefab, followTarget.PrevPos, Quaternion.identity);

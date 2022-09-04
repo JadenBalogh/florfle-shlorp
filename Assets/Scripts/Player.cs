@@ -24,11 +24,11 @@ public class Player : Leader
 
         isFlippingOff = Input.GetKey(KeyCode.Space);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Follower florfleShlorpPrefab = GameManager.FlorfleShlorpPrefabs[Random.Range(0, GameManager.FlorfleShlorpPrefabs.Count)];
-            AddFollower(florfleShlorpPrefab);
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     Follower florfleShlorpPrefab = GameManager.FlorfleShlorpPrefabs[Random.Range(0, GameManager.FlorfleShlorpPrefabs.Count)];
+        //     AddFollower(florfleShlorpPrefab);
+        // }
     }
 
     protected override void UpdateSprite()
