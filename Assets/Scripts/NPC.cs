@@ -7,7 +7,7 @@ public class NPC : FollowTarget
 {
     [SerializeField] private float insultRadius = 2f;
     [SerializeField] private float insultDuration = 3f;
-    [SerializeField] private LayerMask playerMask;
+    [SerializeField] private LayerMask insultTargetMask;
     [SerializeField] private TextMeshProUGUI insultTextbox;
 
     private bool canInsult = true;
@@ -25,9 +25,9 @@ public class NPC : FollowTarget
 
     protected virtual void FixedUpdate()
     {
-        bool isPlayerInRange = Physics2D.OverlapCircle(transform.position, insultRadius, playerMask);
+        bool isPlayerInRange = Physics2D.OverlapCircle(transform.position, insultRadius, insultTargetMask);
 
-        if (canInsult && hasPlayerBeenInsulted && isPlayerInRange)
+        if (canInsult && !hasPlayerBeenInsulted && isPlayerInRange)
         {
             StartCoroutine(InsultTimer());
             isPlayerInRange = true;
