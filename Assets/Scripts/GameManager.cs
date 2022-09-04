@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Tilemap tilemap;
     public static Tilemap Tilemap { get => instance.tilemap; }
 
+    [SerializeField] private List<Follower> florfleShlorpPrefabs;
+    public static List<Follower> FlorfleShlorpPrefabs { get => instance.florfleShlorpPrefabs; }
+
     private void Awake()
     {
         if (instance != null)
