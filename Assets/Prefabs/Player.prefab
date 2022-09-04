@@ -146,5 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da4d0c429f41e240ae9e61a6cde6560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
   moveTime: 0.2
+  florfleShlorpPrefab: {fileID: 7505020674087236674, guid: 9e3d3935eeb10ce42a7c4514ec8096ad, type: 3}
