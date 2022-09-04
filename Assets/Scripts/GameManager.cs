@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Follower> florfleShlorpPrefabs;
     public static List<Follower> FlorfleShlorpPrefabs { get => instance.florfleShlorpPrefabs; }
 
+    [SerializeField] private List<Insult> insults;
+    public static List<Insult> Insults { get => instance.insults; }
+
+    [SerializeField] private List<Insult> replies;
+    public static List<Insult> Replies { get => instance.replies; }
+
     private void Awake()
     {
         if (instance != null)
