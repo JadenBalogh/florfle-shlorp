@@ -17,15 +17,15 @@ public class Leader : FollowTarget
 
     protected virtual void FixedUpdate()
     {
-        bool isPlayerInRange = Physics2D.OverlapCircle(transform.position, insultRadius, insultTargetMask);
+        Collider2D insultTarget = Physics2D.OverlapCircle(transform.position, insultRadius, insultTargetMask);
+        bool hasInsultTarget = insultTarget;
 
-        if (canInsult && !hasPlayerBeenInsulted && isPlayerInRange)
+        if (canInsult && !hasPlayerBeenInsulted && hasInsultTarget)
         {
-            StartCoroutine(InsultTimer());
-            isPlayerInRange = true;
+            StartCoroutine(InsultTimer(insultTarget));
         }
 
-        if (!isPlayerInRange)
+        if (!hasInsultTarget)
         {
             hasPlayerBeenInsulted = false;
         }
@@ -39,14 +39,24 @@ public class Leader : FollowTarget
         followers.Add(follower);
     }
 
-    private IEnumerator InsultTimer()
+    private IEnumerator InsultTimer(Collider2D insultTarget)
     {
-        insultTextbox.text = "\"Nerd!\"";
+        Leader targetLeader = insultTarget.GetComponent<Leader>();
+        bool isInsulter = followers.Count >= targetLeader.followers.Count;
+        Insult insult = GetRandomInsult(isInsulter);
+
+        insultTextbox.text = "\"" + insult.insultText + "\"";
         canInsult = false;
 
         yield return new WaitForSeconds(insultDuration);
 
         insultTextbox.text = "";
         canInsult = true;
+    }
+
+    private Insult GetRandomInsult(bool isInsulter)
+    {
+        List<Insult> insultOptions = isInsulter ? GameManager.Insults : GameManager.Replies;
+        return insultOptions[Random.Range(0, insultOptions.Count)];
     }
 }
