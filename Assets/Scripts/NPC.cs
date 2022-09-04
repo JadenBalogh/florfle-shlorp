@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class NPC : FollowTarget
+public class NPC : Leader
 {
-    [SerializeField] private float insultRadius = 2f;
-    [SerializeField] private float insultDuration = 3f;
-    [SerializeField] private LayerMask insultTargetMask;
-    [SerializeField] private TextMeshProUGUI insultTextbox;
+    [SerializeField] private int minStartFollowers = 1;
+    [SerializeField] private int maxStartFollowers = 10;
 
-    private bool canInsult = true;
-    private bool hasPlayerBeenInsulted = false;
+    protected virtual void Start()
+    {
+        int numFollowers = Random.Range(minStartFollowers, maxStartFollowers);
+        for (int i = 0; i < numFollowers; i++)
+        {
+            Follower florfleShlorpPrefab = GameManager.FlorfleShlorpPrefabs[Random.Range(0, GameManager.FlorfleShlorpPrefabs.Count)];
+            AddFollower(florfleShlorpPrefab);
+        }
+    }
 
     protected override void Update()
     {
@@ -21,32 +26,5 @@ public class NPC : FollowTarget
         TargetPos = transform.position + Vector3.right * inputH + Vector3.up * inputV;
 
         base.Update();
-    }
-
-    protected virtual void FixedUpdate()
-    {
-        bool isPlayerInRange = Physics2D.OverlapCircle(transform.position, insultRadius, insultTargetMask);
-
-        if (canInsult && !hasPlayerBeenInsulted && isPlayerInRange)
-        {
-            StartCoroutine(InsultTimer());
-            isPlayerInRange = true;
-        }
-
-        if (!isPlayerInRange)
-        {
-            hasPlayerBeenInsulted = false;
-        }
-    }
-
-    private IEnumerator InsultTimer()
-    {
-        insultTextbox.text = "\"Nerd!\"";
-        canInsult = false;
-
-        yield return new WaitForSeconds(insultDuration);
-
-        insultTextbox.text = "";
-        canInsult = true;
     }
 }
