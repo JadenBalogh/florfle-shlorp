@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Player : FollowTarget
+public class Player : Leader
 {
-    [SerializeField] private Follower florfleShlorpPrefab;
-
-    private List<Follower> followers = new List<Follower>();
-
     protected override void Update()
     {
         float inputH = Input.GetAxisRaw("Horizontal");
@@ -20,10 +16,8 @@ public class Player : FollowTarget
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            FollowTarget followTarget = followers.Count > 0 ? followers[followers.Count - 1] : this;
-            Follower follower = Instantiate(florfleShlorpPrefab, followTarget.PrevPos, Quaternion.identity);
-            follower.FollowTarget = followTarget;
-            followers.Add(follower);
+            Follower florfleShlorpPrefab = GameManager.FlorfleShlorpPrefabs[Random.Range(0, GameManager.FlorfleShlorpPrefabs.Count)];
+            AddFollower(florfleShlorpPrefab);
         }
     }
 }
